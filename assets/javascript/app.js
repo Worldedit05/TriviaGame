@@ -1,8 +1,17 @@
 
 var answer;
-var time = 5;
+var questionNumber = 0;
+var time = 60;
+
+var quiz = [{
+      question: "This is question #1",
+      choices: ["choice1", "choice2","choice3"],
+      rightAnswer: 2
+             }]
 
 setInterval(timeLeft, 1000);
+
+nextQuestion();
 
 $('.answer').on('click', function() {
   clearInterval(timeLeft);
@@ -19,3 +28,18 @@ function timeLeft() {
     $('#timer').html('Times up!');
   }
 }
+function createQuestion(index) {
+  $('#question').html(quiz[index].question);
+}
+function createSelection(index) {
+  for ( var i = 0; i < quiz[index].choices.length; i++ ) {
+      $('#multipleChoice').append('<li id="' + (i + 1) +'">' + quiz[index].choices[i]);
+  }
+}
+function nextQuestion() {
+  if (questionNumber < quiz.length) {
+    var nextQuestion = createQuestion(questionNumber);
+    var nextChoiceSet = createSelection(questionNumber);
+  }
+}
+// TODO: answer checking function
