@@ -31,7 +31,7 @@ function timeLeft() {
 function createQuestion(index) {
   $('#question').html(quiz[index].question);
 }
-function createSelection(index) {
+function createChoices(index) {
   for ( var i = 0; i < quiz[index].choices.length; i++ ) {
       $('#multipleChoice').append('<li id="' + (i + 1) +'">' + quiz[index].choices[i]);
   }
@@ -39,7 +39,7 @@ function createSelection(index) {
 function nextQuestion() {
   if (questionNumber < quiz.length) {
     var nextQuestion = createQuestion(questionNumber);
-    var nextChoiceSet = createSelection(questionNumber);
+    var nextChoiceSet = createChoices(questionNumber);
   }
 }
 // TODO: answer checking function
