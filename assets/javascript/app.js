@@ -33,7 +33,7 @@ function createQuestion(index) {
 }
 function createChoices(index) {
   for ( var i = 0; i < quiz[index].choices.length; i++ ) {
-      $('#multipleChoice').append('<li id="' + (i + 1) +'">' + quiz[index].choices[i]);
+      $('#multipleChoice').append('<li id="' + (i + 1) +'" class="answer">' + quiz[index].choices[i]);
   }
 }
 function nextQuestion() {
