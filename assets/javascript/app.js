@@ -1,7 +1,9 @@
 var answer;
-var questionNumber = 0;
-var time = 0;
 var counter;
+var time = 0;
+var questionNumber = -1;
+var correct = 0;
+var wrong = 0;
 
 var quiz = [{
     question: "This is question #1",
@@ -23,15 +25,17 @@ $(document).on('click', '.answer', function() {
     clearInterval(timeLeft);
     stop();
     answer = $(this).attr('id');
+    var correctAnswer = quiz[questionNumber].rightAnswer - 1;
+
     if (checkAnswer(answer)) {
-        $('#question').html("Correct!");
-
+        $('#question').html(quiz[questionNumber].choices[correctAnswer] + " is correct!");
+        correct++;
     } else {
-        $('#question').html("Sorry :(");
+        $('#question').html("Sorry that was incorrect. The correct answer was: " + quiz[questionNumber].choices[correctAnswer]);
+        wrong++;
     }
-    questionNumber++;
 
-    setTimeout(nextQuestion, 5 * 1000);
+    resetQuestion();
 
 });
 
@@ -42,6 +46,8 @@ function timeLeft() {
     } else {
         clearInterval(timeLeft);
         $('#timer').html('Times up!');
+        stop();
+        setTimeout(nextQuestion, 5 * 1000);
     }
 }
 
@@ -54,19 +60,25 @@ function stop() {
     clearInterval(counter);
 }
 
+function resetQuestion() {
+    setTimeout(nextQuestion, 5 * 1000);
+}
+
 function createQuestion(index) {
     $('#question').html(quiz[index].question);
 }
 
 function createChoices(index) {
-    var b = $('#multipleChoice');
-    b.empty();
+    var choiceElements = $('#multipleChoice');
+    choiceElements.empty();
     for (var i = 0; i < quiz[index].choices.length; i++) {
-        b.append('<li id="' + (i + 1) + '" class="answer">' + quiz[index].choices[i]);
+        choiceElements.append('<li id="' + (i + 1) + '" class="answer">' + quiz[index].choices[i]);
     }
 }
 
 function nextQuestion() {
+    questionNumber++;
+
     if (questionNumber < quiz.length) {
         var nextQuestion = createQuestion(questionNumber);
         var nextChoiceSet = createChoices(questionNumber);
@@ -81,10 +93,8 @@ function nextQuestion() {
 
 function checkAnswer(userAnswer) {
     if (userAnswer == quiz[questionNumber].rightAnswer) {
-        console.log("Correct!")
         return true;
     } else {
-        console.log("That was not the right answer :(")
         return false;
     }
 }
