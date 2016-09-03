@@ -9,14 +9,19 @@ var quiz = [{
       rightAnswer: 2
              }]
 
-setInterval(timeLeft, 1000);
+var timer = setInterval(timeLeft, 1000);
 
 nextQuestion();
 
 $('.answer').on('click', function() {
   clearInterval(timeLeft);
   answer = $(this).attr('id');
-  console.log(answer);
+  if (checkAnswer(answer)) {
+    $('#question').html("Correct!");
+  }else {
+    $('#question').html("Sorry :(");
+  }
+  clearInterval(timer);
 });
 
 function timeLeft() {
@@ -33,7 +38,7 @@ function createQuestion(index) {
 }
 function createChoices(index) {
   for ( var i = 0; i < quiz[index].choices.length; i++ ) {
-      $('#multipleChoice').append('<li id="' + (i + 1) +'" class="answer">' + quiz[index].choices[i]);
+    $('#multipleChoice').append('<li id="' + (i + 1) +'" class="answer">' + quiz[index].choices[i]);
   }
 }
 function nextQuestion() {
@@ -43,3 +48,12 @@ function nextQuestion() {
   }
 }
 // TODO: answer checking function
+function checkAnswer(userAnswer) {
+  if (userAnswer == quiz[questionNumber].rightAnswer) {
+    console.log("Correct!")
+    return true;
+  }else {
+    console.log("That was not the right answer :(")
+    return false;
+  }
+}
