@@ -6,13 +6,13 @@ var correct = 0;
 var wrong = 0;
 
 var quiz = [{
-    question: "This is question #1",
-    choices: ["choice1", "choice2", "choice3"],
-    rightAnswer: 2
+    question: "Nintendo started as a company originally selling cards?",
+    choices: ["True", "False"],
+    rightAnswer: 1
 }, {
-    question: "This is question #2",
-    choices: ["choice1", "choice2", "choice3"],
-    rightAnswer: 3
+    question: "Nintendo's now famous character, Mario, started first appeared in what game?",
+    choices: ["Super Mario Brothers", "Donkey Kong", "Punch Out"],
+    rightAnswer: 2
 }, {
     question: "This is question #3",
     choices: ["choice1", "choice2", "choice3"],
@@ -47,12 +47,12 @@ function timeLeft() {
         clearInterval(timeLeft);
         $('#timer').html('Times up!');
         stop();
-        setTimeout(nextQuestion, 5 * 1000);
+        setTimeout(nextQuestion, 3 * 1000);
     }
 }
 
 function start() {
-    time = 60;
+    time = 45;
     counter = setInterval(timeLeft, 1000);
 }
 
@@ -61,7 +61,7 @@ function stop() {
 }
 
 function resetQuestion() {
-    setTimeout(nextQuestion, 5 * 1000);
+    setTimeout(nextQuestion, 3 * 1000);
 }
 
 function createQuestion(index) {
@@ -82,11 +82,13 @@ function nextQuestion() {
     if (questionNumber < quiz.length) {
         var nextQuestion = createQuestion(questionNumber);
         var nextChoiceSet = createChoices(questionNumber);
-        $('#timer').html('Time Remaining: 60');
+        $('#timer').html('Time Remaining: 45');
         start();
     } else {
         $('.game').empty();
-        $('.jumbotron').append('<div>Game Over</div>');
+        var display = $('.jumbotron')
+        display.append('<h2 class="title">Game Over!</h2>').append('<h3 class="title">Here is your score: </h3>').append('<ul class="game" id="score"></ul>')
+        $('#score').append('<li id="right">Correct answers: ' + correct + '</li>').append('<li id="right">Wrong answers: ' + wrong + '</li>');
     }
     clearTimeout(nextQuestion);
 }

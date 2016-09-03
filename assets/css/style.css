@@ -1,6 +1,19 @@
+body {
+  background-color: #80D0C5;
+}
 .header {
   height: 40px;
 }
-.title {
+.title, .game {
   text-align: center;
+}
+.answer:hover {
+  background-color: #F86F7C;
+  color: #fff;
+}
+#multipleChoice, #score {
+  font-size: 20px;
+}
+#question {
+  border-bottom: 1px solid #EB4A59;
 }
