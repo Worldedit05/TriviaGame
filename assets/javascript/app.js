@@ -5,6 +5,8 @@ var questionNumber = -1;
 var correct = 0;
 var wrong = 0;
 
+//TODO: Write in some comments
+
 var quiz = [{
     question: "Nintendo started as a company originally selling cards?",
     choices: ["True", "False"],
@@ -42,12 +44,12 @@ $(document).on('click', '.answer', function() {
 function timeLeft() {
     if (time !== 1) {
         time--;
-        $('#timer').html('Time Remaining: ' + time);
+        $('#timer').html('Time Remaining: ' + time + ' seconds');
     } else {
         clearInterval(timeLeft);
         $('#timer').html('Times up!');
         stop();
-        setTimeout(nextQuestion, 3 * 1000);
+        setTimeout(nextQuestion, 1 * 1000);
     }
 }
 
@@ -82,7 +84,7 @@ function nextQuestion() {
     if (questionNumber < quiz.length) {
         var nextQuestion = createQuestion(questionNumber);
         var nextChoiceSet = createChoices(questionNumber);
-        $('#timer').html('Time Remaining: 45');
+        $('#timer').html('Time Remaining: 45 seconds');
         start();
     } else {
         $('.game').empty();
