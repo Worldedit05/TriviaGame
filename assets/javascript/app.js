@@ -24,6 +24,12 @@ var quiz = [{
 nextQuestion();
 
 $(document).on('click', '.answer', function() {
+
+    if ($('.game').hasClass('disabled')) {
+      return false;
+    }
+
+    $('.game').attr('class','game disabled');
     clearInterval(timeLeft);
     stop();
     answer = $(this).attr('id');
@@ -40,6 +46,10 @@ $(document).on('click', '.answer', function() {
     resetQuestion();
 
 });
+
+// $('.answer').click(function(e) {
+//   e.stopPropagation();
+// })
 
 function timeLeft() {
     if (time !== 1) {
@@ -85,6 +95,7 @@ function nextQuestion() {
         var nextQuestion = createQuestion(questionNumber);
         var nextChoiceSet = createChoices(questionNumber);
         $('#timer').html('Time Remaining: 45 seconds');
+        $('.game').removeClass('disabled');
         start();
     } else {
         $('.game').empty();
